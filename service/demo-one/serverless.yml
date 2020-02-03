@@ -1,0 +1,29 @@
+service:
+  name: demo-one
+
+provider:
+  name: cloudflare
+  config:
+    accountId: ${env:CLOUDFLARE_ACCOUNT_ID}
+    zoneId: ${env:CLOUDFLARE_ZONE_ID}
+
+plugins:
+  - serverless-cloudflare-workers
+
+functions:
+  api:
+    name: demo-one
+    script: index
+    # The following will create a namespace called DEMO_CREDENTIALS and bind
+    # the variable CREDENTIALS to that namespace inside the function
+    resources:
+      kv:
+        - variable: CREDENTIALS
+          namespace: DEMO_CREDENTIALS
+    events:
+      - http:
+          url: dynamodb-based-api.davisresearchgroup.com/*
+          method: GET
+          # headers:
+          #   foo: bar
+          #   x-client-data: value

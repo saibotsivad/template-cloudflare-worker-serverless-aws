@@ -1,0 +1,16 @@
+{
+  "name": "template-cloudflare-worker-serverless-aws",
+  "scripts": {
+    "build": "rollup -c",
+    "predeploy": "npm run build",
+    "deploy": "npm run deploy:demo-one",
+    "deploy:demo-one": "source secrets.sh && cd service/demo-one && serverless deploy"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^7.0.0",
+    "rollup": "^1.29.1",
+    "serverless": "^1.61.3",
+    "serverless-cloudflare-workers": "^1.2.0",
+    "sign-aws-requests": "^1.0.1"
+  }
+}
